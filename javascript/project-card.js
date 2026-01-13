@@ -52,36 +52,53 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+const modal = document.getElementById("project-modal");
+
 // Fonction pour créer une carte
 function createCard(projet) {
     const card = document.createElement('div');
     card.className = 'card';
-
     card.innerHTML = `
     <img src="${projet.image}" alt=""/>
-    <h3>${projet.titre}</h3>
-  `;
+    <h3>${projet.titre}</h3>`;
+
+    card.addEventListener("click", () => {
+      modal.innerHTML = `
+        <div class="modal-content">
+          <button class="close-btn">×</button>
+          <img src="${projet.image}" alt="${projet.title}">
+          <h2>${projet.title}</h2>
+          <p>${projet.description}</p>
+        </div>`;
+      modal.classList.remove("hidden");
+    });
 
     return card;
 }
 
-function showCompleteCard(projet){
-    
-}
+modal.addEventListener("click", (e) => {
+  if (e.target.classList.contains("close-btn") || e.target === modal) {
+    modal.classList.add("hidden");
+    modal.innerHTML = "";
+  }
+});
 
 // Exemple de "base de données"
 const projets = [
 {
     titre: "Projet Alpha",
-    image: "./image/project_picture/app.png"
+    image: "./image/project_picture/app.png",
+    description: "Description 1"
 },
 {
     titre: "Projet Beta",
-    image: "./image/project_picture/Chasse_au_monstre.png"
+    image: "./image/project_picture/Chasse_au_monstre.png",
+    description: "Description 2"
 },
 {
     titre: "Projet Gamma",
-    image: "./image/project_picture/JSAE.png"
+    image: "./image/project_picture/JSAE.png",
+    description: "Description 3"
 }
 ];
 
